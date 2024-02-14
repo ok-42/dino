@@ -1,5 +1,11 @@
 #include <Servo.h>
 
+// 10-bit value from `analogRead`
+typedef int int10;
+
+// Photoresistor
+const int PHOTO = A2;
+
 Servo servo;
 
 // Angles for the servo when Space button is or is not pressed
@@ -18,8 +24,7 @@ void setup() {
 }
 
 void loop() {
-    while (true) {
-        press();
-        delay(1500);
-    }
+    int10 brightness = analogRead(PHOTO);
+    press();
+    delay(1500);
 }
