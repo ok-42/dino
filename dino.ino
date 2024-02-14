@@ -1,4 +1,7 @@
+#include <NecDecoder.h>
 #include <Servo.h>
+
+#include "buttons.h"
 
 // 10-bit value from `analogRead`
 typedef int int10;
@@ -9,11 +12,16 @@ const int PHOTO = A2;
 // Servo control pin
 const int SERVO_PIN = 3;
 
+NecDecoder ir;
 Servo servo;
 
 // Angles for the servo when Space button is or is not pressed
 const int OFF = 70;
 const int ON = 90;
+
+void interrupt() {
+    ir.tick();
+}
 
 void press() {
     servo.write(ON);
@@ -22,6 +30,7 @@ void press() {
 }
 
 void setup() {
+    attachInterrupt(0, interrupt, FALLING);
     servo.attach(SERVO_PIN);
     servo.write(OFF);
 }
