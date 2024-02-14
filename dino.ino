@@ -3,7 +3,7 @@
 // 10-bit value from `analogRead`
 typedef int int10;
 
-// Photoresistor
+// Photoresistor analog pin
 const int PHOTO = A2;
 
 // Servo control pin
@@ -17,7 +17,7 @@ const int ON = 90;
 
 void press() {
     servo.write(ON);
-    delay(50);
+    delay(100);
     servo.write(OFF);
 }
 
