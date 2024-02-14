@@ -6,6 +6,9 @@ typedef int int10;
 // Photoresistor
 const int PHOTO = A2;
 
+// Servo control pin
+const int SERVO_PIN = 3;
+
 Servo servo;
 
 // Angles for the servo when Space button is or is not pressed
@@ -19,7 +22,7 @@ void press() {
 }
 
 void setup() {
-    servo.attach(3);
+    servo.attach(SERVO_PIN);
     servo.write(OFF);
 }
 
