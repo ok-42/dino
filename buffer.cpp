@@ -12,8 +12,11 @@ void Buffer::add(int value) {
 /// @brief Convert digits from the buffer to a number
 int Buffer::resolve(void) {
     int result = 0;
-    for (int i = 0; i < index; i++) {
-        result += this->buffer[i] * pow(10, index - i - 1);
+    int mult = 1;
+    for (int i = index - 1; i >= 0; i--) {
+        result += this->buffer[i] * mult;
+        Serial.println(result);
+        mult *= 10;
     }
     return result;
 }
