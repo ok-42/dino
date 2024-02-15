@@ -18,8 +18,8 @@ NecDecoder ir;
 Servo servo;
 
 // Angles for the servo when Space button is or is not pressed
-const int OFF = 70;
-const int ON = 90;
+int OFF = 70;
+int ON = 90;
 
 /// @brief Digits from the IR remote are stored to the buffer. `EState` is
 /// where those values are applied to. E.g., if it is `ReadBaseAngle`, all
@@ -49,6 +49,14 @@ void setup() {
     servo.write(OFF);
 }
 
+/* IR buttons:
+
+Digits - add the digit to the buffer.
+All other buttons - set buffer content to a parameter:
+    - Left: servo angle when OFF
+    - Right: servo rotation when switching between OFF and ON
+*/
+
 void loop() {
     int10 brightness = analogRead(PHOTO);
     // Serial.println(brightness);
@@ -56,5 +64,23 @@ void loop() {
         auto command = ir.readCommand();
         Serial.print("Received command: ");
         Serial.println(command);
+        switch (command) {
+            case IR_LEFT:
+                // TODO Remove `EState`. These buttons must apply buffer
+                state = ReadBaseAngle;
+                Serial.println("LEFT: read base angle");
+                break;
+            case IR_RIGHT:
+                state = ReadDiffAngle;
+                Serial.println("RIGHT: read diff angle");
+                break;
+            default:
+                for (int i = 0; i < 10; i++) {
+                    if (command == digits[i]) {
+                        buffer.add(i);
+                    }
+                }
+                break;
+        }
     }
 }
