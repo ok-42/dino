@@ -4,7 +4,7 @@
 class Buffer {
 public:
     Buffer() {
-        int* buffer = (int*)calloc(5, sizeof(int));
+        buffer = (int*)calloc(5, sizeof(int));
         volatile int bufferIndex = 0;
     };
 

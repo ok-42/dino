@@ -5,7 +5,7 @@
 /// @brief Add a new value to the buffer
 /// @param value digit 0-9 on IR remote
 void Buffer::add(int value) {
-    buffer[index] = value;
+    this->buffer[index] = value;
     ++index;
 }
 
@@ -13,8 +13,7 @@ void Buffer::add(int value) {
 int Buffer::resolve(void) {
     int result = 0;
     for (int i = 0; i < index; i++) {
-        result += pow(10, buffer[index]);
-        --index;
+        result += this->buffer[i] * pow(10, index - i - 1);
     }
     return result;
 }
