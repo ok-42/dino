@@ -44,12 +44,17 @@ void press() {
 
 void setup() {
     attachInterrupt(0, interrupt, FALLING);
+    Serial.begin(9600);
     servo.attach(SERVO_PIN);
     servo.write(OFF);
 }
 
 void loop() {
     int10 brightness = analogRead(PHOTO);
-    press();
-    delay(1500);
+    // Serial.println(brightness);
+    if (ir.available()) {
+        auto command = ir.readCommand();
+        Serial.print("Received command: ");
+        Serial.println(command);
+    }
 }
