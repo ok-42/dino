@@ -1,17 +1,19 @@
-#define IR_1 0xA2
-#define IR_2 0x62
-#define IR_3 0xE2
-#define IR_4 0x22
-#define IR_5 0x2
-#define IR_6 0xC2
-#define IR_7 0xE0
-#define IR_8 0xA8
-#define IR_9 0x90
-#define IR_STAR 0x68
-#define IR_0 0x98
-#define IR_HASH 0xB0
-#define IR_UP 0x18
-#define IR_LEFT 0x10
-#define IR_OK 0x38
-#define IR_RIGHT 0x5A
-#define IR_DOWN 0x4A
+const int IR_1 = 0xA2;
+const int IR_2 = 0x62;
+const int IR_3 = 0xE2;
+const int IR_4 = 0x22;
+const int IR_5 = 0x2;
+const int IR_6 = 0xC2;
+const int IR_7 = 0xE0;
+const int IR_8 = 0xA8;
+const int IR_9 = 0x90;
+const int IR_STAR = 0x68;
+const int IR_0 = 0x98;
+const int IR_HASH = 0xB0;
+const int IR_UP = 0x18;
+const int IR_LEFT = 0x10;
+const int IR_OK = 0x38;
+const int IR_RIGHT = 0x5A;
+const int IR_DOWN = 0x4A;
+
+int digits[10] = {IR_0, IR_1, IR_2, IR_3, IR_4, IR_5, IR_6, IR_7, IR_8, IR_9};

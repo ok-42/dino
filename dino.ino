@@ -21,17 +21,6 @@ Servo servo;
 int OFF = 70;
 int ON = 90;
 
-/// @brief Digits from the IR remote are stored to the buffer. `EState` is
-/// where those values are applied to. E.g., if it is `ReadBaseAngle`, all
-/// values in the buffer are interpreted as a servo angle
-enum EState {
-    Default,
-    ReadBaseAngle,
-    ReadDiffAngle,
-};
-
-volatile EState state = Default;
-
 void interrupt() {
     ir.tick();
 }
@@ -59,27 +48,29 @@ All other buttons - set buffer content to a parameter:
 
 void loop() {
     int10 brightness = analogRead(PHOTO);
-    // Serial.println(brightness);
     if (ir.available()) {
         auto command = ir.readCommand();
         Serial.print("Received command: ");
         Serial.println(command);
+        for (int i = 0; i < 10; i++) {
+            if (command == digits[i]) {
+                buffer.add(i);
+                return;
+            }
+        }
+        auto v = buffer.resolve();
         switch (command) {
             case IR_LEFT:
-                // TODO Remove `EState`. These buttons must apply buffer
-                state = ReadBaseAngle;
-                Serial.println("LEFT: read base angle");
+                OFF = v;
+                Serial.print("LEFT: set base angle");
+                Serial.println(v);
                 break;
             case IR_RIGHT:
-                state = ReadDiffAngle;
-                Serial.println("RIGHT: read diff angle");
+                ON = OFF + v;
+                Serial.print("RIGHT: set diff angle");
+                Serial.println(v);
                 break;
             default:
-                for (int i = 0; i < 10; i++) {
-                    if (command == digits[i]) {
-                        buffer.add(i);
-                    }
-                }
                 break;
         }
     }
