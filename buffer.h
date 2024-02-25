@@ -9,6 +9,7 @@ public:
     };
 
     void add(int);
+    void reset(void);
     int resolve(void);
 
 

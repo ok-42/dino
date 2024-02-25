@@ -9,6 +9,13 @@ void Buffer::add(int value) {
     ++index;
 }
 
+void Buffer::reset(void) {
+    for (int i = 0; i < 5; i++) {
+        buffer[i] = 0;
+    }
+    index = 0;
+}
+
 /// @brief Convert digits from the buffer to a number
 int Buffer::resolve(void) {
     int result = 0;

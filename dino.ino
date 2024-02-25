@@ -58,6 +58,10 @@ void loop() {
                 return;
             }
         }
+        if (command == IR_HASH) {
+            buffer.reset();
+            return;
+        }
         auto v = buffer.resolve();
         switch (command) {
             case IR_LEFT:
