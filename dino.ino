@@ -15,6 +15,9 @@ Servo servo;
 const int OFF = 70;
 const int ON = 90;
 
+int BRIGHTNESS_WHITE = 660;
+int BRIGHTNESS_BLACK = 730;
+
 void press() {
     servo.write(ON);
     delay(100);
@@ -24,10 +27,12 @@ void press() {
 void setup() {
     servo.attach(SERVO_PIN);
     servo.write(OFF);
+    Serial.begin(9600);
 }
 
 void loop() {
     int10 brightness = analogRead(PHOTO);
-    press();
+    Serial.println(brightness);
+    // press();
     delay(1500);
 }
