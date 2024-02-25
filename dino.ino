@@ -33,6 +33,8 @@ void setup() {
 void loop() {
     int10 brightness = analogRead(PHOTO);
     Serial.println(brightness);
-    // press();
-    delay(1500);
+    if (brightness > (BRIGHTNESS_WHITE + BRIGHTNESS_BLACK) / 2) {
+        press();
+    }
+    delay(10);
 }
