@@ -18,9 +18,11 @@ const int ON = 90;
 int BRIGHTNESS_WHITE = 660;
 int BRIGHTNESS_BLACK = 730;
 
-void press() {
+/// @brief Keep Space button pressed
+/// @param duration ms
+void press(int duration) {
     servo.write(ON);
-    delay(100);
+    delay(duration);
     servo.write(OFF);
 }
 
@@ -34,7 +36,7 @@ void loop() {
     int10 brightness = analogRead(PHOTO);
     Serial.println(brightness);
     if (brightness > (BRIGHTNESS_WHITE + BRIGHTNESS_BLACK) / 2) {
-        press();
+        press(100);
     }
     delay(10);
 }
