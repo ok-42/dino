@@ -2,6 +2,7 @@
 #include <NecDecoder.h>
 #include <Servo.h>
 
+#include "Arduino.h"
 #include "buffer.h"
 #include "buttons.h"
 #include "menu.h"
