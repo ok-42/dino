@@ -1,8 +1,10 @@
+#include <LiquidCrystal_I2C.h>
 #include <NecDecoder.h>
 #include <Servo.h>
 
 #include "buffer.h"
 #include "buttons.h"
+#include "menu.h"
 
 // 10-bit value from `analogRead`
 typedef int int10;
@@ -13,7 +15,12 @@ const int PHOTO = A2;
 // Servo control pin
 const int SERVO_PIN = 3;
 
+// Top-level menu items
+char* items[] = {"Play     ", "Configure", "Show     "};
+
 Buffer buffer;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+Menu menu(&lcd, items, 3);
 NecDecoder ir;
 Servo servo;
 
@@ -39,6 +46,8 @@ void press(int duration) {
 void setup() {
     attachInterrupt(0, interrupt, FALLING);
     Serial.begin(9600);
+    lcd.init();
+    lcd.backlight();
     servo.attach(SERVO_PIN);
     servo.write(OFF);
 }
@@ -83,6 +92,14 @@ void loop() {
                 ON = OFF + v;
                 Serial.print("RIGHT: set diff angle");
                 Serial.println(v);
+                break;
+            case IR_DOWN:
+                menu.next();
+                menu.show();
+                break;
+            case IR_UP:
+                menu.prev();
+                menu.show();
                 break;
             default:
                 break;
